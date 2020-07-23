@@ -41,6 +41,8 @@ Writing simple apps is easy but writing large ones can be very complex. At that 
 
 This library tries to fix that problem, so your developers are still happy after many years of app development. It has been designed to navigate between different views and modules without actually knowing the destination object, making things easier.
 
+I recommend you to read my article about [Building complex modular architectures with SwiftUI, Combine and Swift Package Manager (SPM)](https://medium.com/cristian-ortega/modular-architectures-swiftui-combine-swift-package-manager-80820b4ff463) to understand how this router works internally.
+
 ## Installation :gear:
 
 ### Swift Package Manager
