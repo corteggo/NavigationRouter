@@ -1,0 +1,7 @@
+ignore:
+  - Tests/
+  - TestApp/
+  - TestFeature1/
+  - TestFeature2/
+  - TestFeature3/
+  - Package.swift

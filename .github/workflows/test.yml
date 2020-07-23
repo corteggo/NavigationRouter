@@ -1,0 +1,15 @@
+name: test
+on: [push, pull_request]
+jobs:
+  build:
+    name: test
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@master
+      - name: Resolve package dependencies
+        run: xcodebuild -resolvePackageDependencies
+      - name: Run tests
+        run: xcodebuild test -destination name="iPhone 11" -workspace "NavigationRouter.xcworkspace" -scheme "NavigationRouterTestApp"
+      - name: Upload coverage report
+        run: bash <(curl -s https://codecov.io/bash) -X xcodellvm

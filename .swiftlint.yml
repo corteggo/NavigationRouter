@@ -1,0 +1,26 @@
+opt_in_rules:
+  - closure_body_length
+  - collection_alignment
+  - conditional_returns_on_newline
+  - duplicate_enum_cases
+  - empty_string
+  - fatal_error_message
+  - literal_expression_end_indentation
+  - missing_docs        
+  - modifier_order
+  - multiline_literal_brackets
+  - single_test_class
+  - vertical_whitespace_between_cases
+disabled_rules:
+  - trailing_whitespace
+  - function_parameter_count
+excluded:
+  - .build/
+  - Tests/
+  - TestApp/
+  - TestFeature1/
+  - TestFeature2/
+  - TestFeature3/
+  - Package.swift
+
+reporter: "xcode"

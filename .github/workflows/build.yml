@@ -1,0 +1,13 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    name: build
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@master
+      - name: Resolve package dependencies
+        run: xcodebuild -resolvePackageDependencies
+      - name: Build project
+        run: xcodebuild build -destination name="iPhone 11" -workspace "NavigationRouter.xcworkspace" -scheme "NavigationRouterTestApp"
