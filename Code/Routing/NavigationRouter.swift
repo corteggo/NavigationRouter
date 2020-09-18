@@ -21,7 +21,6 @@
 //
 
 import UIKit
-import Combine
 
 /// Navigation router
 open class NavigationRouter: Router {
