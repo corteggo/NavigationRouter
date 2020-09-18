@@ -28,7 +28,7 @@ Please note SwiftUI support requires iOS 13.0 or newer and macOS 10.15 or newer.
 
 ## Supported platforms :iphone:
 
-* iOS 8.0+.
+* iOS 9.0+.
 * macOS 10.15+.
 * Xcode 11.0+.
 * Swift 5.0+.
