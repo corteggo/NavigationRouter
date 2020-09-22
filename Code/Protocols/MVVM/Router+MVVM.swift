@@ -22,6 +22,9 @@
 
 import Foundation
 
+#if canImport(SwiftUI)
+import SwiftUI
+
 /// Routable view model
 public protocol RoutableViewModel: Routable {
     /// Routed view
@@ -44,9 +47,6 @@ public extension RoutableViewModel {
         UIHostingController(rootView: self.routedView)
     }
 }
-
-#if canImport(SwiftUI)
-import SwiftUI
 
 /// Routable view
 @available(iOS 13.0, macOS 10.15, *)
