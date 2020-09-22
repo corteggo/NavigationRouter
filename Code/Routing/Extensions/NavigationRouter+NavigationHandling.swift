@@ -138,6 +138,7 @@ extension NavigationRouter {
         return routable.routedViewController
     }
     
+#if canImport(SwiftUI)
     /// Gets view for given path
     /// - Parameter path: Path to return view  for
     /// - Returns: UIViewController
@@ -181,6 +182,7 @@ extension NavigationRouter {
         // Return view
         return hostingController.rootView
     }
+#endif
     
     /// Dismisses modal if needed
     open func dismissModalIfNeeded() {

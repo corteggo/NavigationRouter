@@ -46,6 +46,7 @@ public protocol Routable {
 
 #if canImport(SwiftUI)
 import SwiftUI
+
 @available(iOS 13.0, macOS 10.15, *)
 public extension Routable where Self: View {
     /// Routed view

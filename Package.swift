@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "NavigationRouter",
     platforms: [
-        .iOS(.v9),
+        .iOS(.v11),
         .macOS(.v10_15)
     ],
     products: [

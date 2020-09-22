@@ -8,7 +8,6 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
-#endif
 
 // MARK: - Type erasure
 @available(iOS 13.0, macOS 10.15, *)
@@ -19,3 +18,4 @@ public extension View {
         AnyView(self)
     }
 }
+#endif
