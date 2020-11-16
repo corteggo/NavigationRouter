@@ -292,7 +292,7 @@ extension NavigationRouter {
                 animated: true,
                 completion: nil)
         } else if replace {
-            if embedInNavigationView {
+            if embedInNavigationView, !(hostedViewController is UITabBarController) {
                 self.setRootViewController(forWindow: keyWindow,
                                            UINavigationController(rootViewController: hostedViewController),
                                            animation: animation)
