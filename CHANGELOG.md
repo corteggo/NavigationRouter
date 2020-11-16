@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3](https://github.com/corteggo/NavigationRouter/releases/tag/1.0.3)
+
+Fixed a bug related to UITabBarController that was causing navigation not to work properly.
+
+
 ## [1.0.2](https://github.com/corteggo/NavigationRouter/releases/tag/1.0.2)
 
 Removed support for older versions than iOS 11.0 since Xcode 12 was complaining about SwiftUI in armv7.

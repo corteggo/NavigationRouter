@@ -221,7 +221,7 @@ extension NavigationRouter {
     ///   - shouldPreventDismissal: Whether modal dismissal should be prevented or not
     ///   - interceptionExecutionFlow: Navigation interception execution flow (if any)
     ///   - animation: Animation to use for navigation
-    // swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length cyclomatic_complexity
     func instantiateViewControllerAndNavigate(
         toRoute route: NavigationRoute,
         withParameters parameters: [String: String]?,
@@ -303,6 +303,11 @@ extension NavigationRouter {
                 navigationController.pushViewController(hostedViewController,
                                                         animated: true)
         } else if let navigationController: UINavigationController = topRootViewController as? UINavigationController {
+            navigationController.pushViewController(hostedViewController, animated: true)
+        } else if let tabBarController: UITabBarController =
+                    topRootViewController as? UITabBarController,
+                  let navigationController: UINavigationController =
+                    tabBarController.selectedViewController as? UINavigationController {
             navigationController.pushViewController(hostedViewController, animated: true)
         } else if embedInNavigationView {
             self.setRootViewController(forWindow: keyWindow,
