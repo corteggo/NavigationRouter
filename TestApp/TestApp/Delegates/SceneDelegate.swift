@@ -104,9 +104,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let navigationController: UINavigationController = UINavigationController(rootViewController: contentView)
-            navigationController.navigationBar.prefersLargeTitles = true
-            window.rootViewController = navigationController
+            window.rootViewController = contentView
             self.window = window
             window.makeKeyAndVisible()
         }

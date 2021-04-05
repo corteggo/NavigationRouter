@@ -29,235 +29,238 @@ struct View1A: RoutableView {
     
     /// Body builder
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                Text("This is the root view, set as root view controller for active scene using UIHostingController.")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("In-module navigation")
-                        .font(.headline)
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("This is the root view, set as root view controller for active scene using UIHostingController.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
                     
-                    RoutedLink(to: "/view1B") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Navigate to View 1B")
-                                    .bold()
-                                    .foregroundColor(Color(UIColor.systemBackground))
-                                    .accessibility(identifier: "testNavigationInSameModuleWithoutAuthentication")
-                                
-                                Text("(without authentication)")
-                                    .font(.footnote)
-                                    .foregroundColor(Color(UIColor.systemBackground))
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
-                        }
-                        .padding()
-                    }
-                    .background(Color.primary)
-                    .cornerRadius(4)
-                    
-                    RoutedLink(to: "/view1C") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                HStack {
-                                    Text("Navigate to View 1C")
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("In-module navigation")
+                            .font(.headline)
+                        
+                        RoutedLink(to: "/view1B") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Navigate to View 1B")
                                         .bold()
                                         .foregroundColor(Color(UIColor.systemBackground))
-                                        .accessibility(identifier: "testNavigationInSameModuleWithAuthentication")
-                                        
-                                    Spacer()
+                                        .accessibility(identifier: "testNavigationInSameModuleWithoutAuthentication")
+                                    
+                                    Text("(without authentication)")
+                                        .font(.footnote)
+                                        .foregroundColor(Color(UIColor.systemBackground))
                                 }
                                 
-                                Text("(with authentication)")
-                                    .font(.footnote)
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
                                     .foregroundColor(Color(UIColor.systemBackground))
                             }
-                                
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
+                            .padding()
                         }
-                        .padding()
-                    }
-                    .background(Color.primary)
-                    .cornerRadius(4)
-                }
-                
-                Divider()
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Cross-module navigation")
-                        .font(.headline)
-                    
-                    RoutedLink(to: "/view2A") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Navigate to View 2A")
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .accessibility(identifier: "testNavigationBetweenModulesWithoutAuthentication")
-                                
-                                Text("(without authentication)")
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
-                        }
-                        .padding()
-                    }
-                    .background(Color.blue)
-                    .cornerRadius(4)
-                    
-                    RoutedLink(to: "/view2B") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Navigate to View 2B")
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .accessibility(identifier: "testNavigationBetweenModulesWithAuthentication")
-                                
-                                Text("(with authentication)")
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
-                        }
-                        .padding()
-                    }
-                    .background(Color.blue)
-                    .cornerRadius(4)
-                }
-                
-                Divider()
-                    
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Parametrized navigation")
-                        .font(.headline)
-                    
-                    RoutedLink(to: "/view2C/5") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Navigate to View 2C")
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .accessibility(identifier: "testNavigationBetweenModulesWithParameters")
-                                
-                                Text("(with parameters)")
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
-                        }
-                        .padding()
-                    }
-                    .background(Color.red)
-                    .cornerRadius(4)
-                }
-                
-                Divider()
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Intercepting navigation")
-                        .font(.headline)
-                    
-                    RoutedLink(to: "/view2D") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Navigate to View 2D")
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .accessibility(identifier: "testInterceptionAfterNavigation")
+                        .background(Color.primary)
+                        .cornerRadius(4)
+                        
+                        RoutedLink(to: "/view1C") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    HStack {
+                                        Text("Navigate to View 1C")
+                                            .bold()
+                                            .foregroundColor(Color(UIColor.systemBackground))
+                                            .accessibility(identifier: "testNavigationInSameModuleWithAuthentication")
+                                            
+                                        Spacer()
+                                    }
                                     
-                                Text("(after navigation)")
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
-                        }
-                        .padding()
-                    }
-                    .background(Color.purple)
-                    .cornerRadius(4)
-                    
-                    RoutedLink(to: "/view2E") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Navigate to View 2E")
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .accessibility(identifier: "testInterceptionBeforeNavigation")
+                                    Text("(with authentication)")
+                                        .font(.footnote)
+                                        .foregroundColor(Color(UIColor.systemBackground))
+                                }
+                                    
+                                Spacer()
                                 
-                                Text("(before navigation)")
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(UIColor.systemBackground))
                             }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
+                            .padding()
                         }
-                        .padding()
+                        .background(Color.primary)
+                        .cornerRadius(4)
                     }
-                    .background(Color.purple)
-                    .cornerRadius(4)
-                }
-                
-                Divider()
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Navigation stack handling")
-                        .font(.headline)
                     
-                    RoutedLink(to: "/view3A") {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Navigate to View 3A")
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .accessibility(identifier: "testMultipleNavigations1")
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Cross-module navigation")
+                            .font(.headline)
+                        
+                        RoutedLink(to: "/view2A") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Navigate to View 2A")
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .accessibility(identifier: "testNavigationBetweenModulesWithoutAuthentication")
+                                    
+                                    Text("(without authentication)")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }
                                 
-                                Text("(multiple navigations)")
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(UIColor.systemBackground))
                             }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(UIColor.systemBackground))
+                            .padding()
                         }
-                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(4)
+                        
+                        RoutedLink(to: "/view2B") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Navigate to View 2B")
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .accessibility(identifier: "testNavigationBetweenModulesWithAuthentication")
+                                    
+                                    Text("(with authentication)")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                            }
+                            .padding()
+                        }
+                        .background(Color.blue)
+                        .cornerRadius(4)
                     }
-                    .background(Color(UIColor.brown))
-                    .cornerRadius(4)
+                    
+                    Divider()
+                        
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Parametrized navigation")
+                            .font(.headline)
+                        
+                        RoutedLink(to: "/view2C/5") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Navigate to View 2C")
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .accessibility(identifier: "testNavigationBetweenModulesWithParameters")
+                                    
+                                    Text("(with parameters)")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                            }
+                            .padding()
+                        }
+                        .background(Color.red)
+                        .cornerRadius(4)
+                    }
+                    
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Intercepting navigation")
+                            .font(.headline)
+                        
+                        RoutedLink(to: "/view2D") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Navigate to View 2D")
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .accessibility(identifier: "testInterceptionAfterNavigation")
+                                        
+                                    Text("(after navigation)")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                            }
+                            .padding()
+                        }
+                        .background(Color.purple)
+                        .cornerRadius(4)
+                        
+                        RoutedLink(to: "/view2E") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Navigate to View 2E")
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .accessibility(identifier: "testInterceptionBeforeNavigation")
+                                    
+                                    Text("(before navigation)")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                            }
+                            .padding()
+                        }
+                        .background(Color.purple)
+                        .cornerRadius(4)
+                    }
+                    
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Navigation stack handling")
+                            .font(.headline)
+                        
+                        RoutedLink(to: "/view3A") {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Navigate to View 3A")
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .accessibility(identifier: "testMultipleNavigations1")
+                                    
+                                    Text("(multiple navigations)")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                            }
+                            .padding()
+                        }
+                        .background(Color(UIColor.brown))
+                        .cornerRadius(4)
+                    }
                 }
-            }
-            .padding()
-        }.navigationBarTitle("View 1A", displayMode: .large)
+                .padding()
+            }.navigationBarTitle("View 1A", displayMode: .large)
+            .navigationBarHidden(true)
+        }
     }
     
     // MARK: - Fields

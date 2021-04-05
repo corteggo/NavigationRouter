@@ -299,10 +299,7 @@ extension NavigationRouter {
             } else {
                 self.setRootViewController(forWindow: keyWindow, hostedViewController, animation: animation)
             }
-        } else if let navigationController: UINavigationController = topRootViewController.navigationController {
-                navigationController.pushViewController(hostedViewController,
-                                                        animated: true)
-        } else if let navigationController: UINavigationController = topRootViewController as? UINavigationController {
+        } else if let navigationController: UINavigationController = getNavigationController(in: topRootViewController) {
             navigationController.pushViewController(hostedViewController, animated: true)
         } else if let tabBarController: UITabBarController =
                     topRootViewController as? UITabBarController,
@@ -328,6 +325,17 @@ extension NavigationRouter {
                                    shouldPreventDismissal: shouldPreventDismissal,
                                    animation: animation)
         }
+    }
+    
+    private func getNavigationController(in root: UIViewController) -> UINavigationController? {
+        for child in root.children {
+            if let typed = child as? UINavigationController {
+                return typed
+            } else if let typed = getNavigationController(in: child) {
+                return typed
+            }
+        }
+        return nil
     }
 
     /// Sets root view controller
