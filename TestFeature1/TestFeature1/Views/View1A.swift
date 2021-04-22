@@ -259,7 +259,6 @@ struct View1A: RoutableView {
                 }
                 .padding()
             }.navigationBarTitle("View 1A", displayMode: .large)
-            .navigationBarHidden(true)
         }
     }
     

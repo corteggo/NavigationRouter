@@ -196,4 +196,24 @@ extension NavigationRouter {
             rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         }
     }
+    
+    /// Pop VC if needed
+    open func popViewController(animated: Bool = true) {
+        DispatchQueue.main.async { [self] in
+            // Get root controller from active scene
+            guard let keyWindow: UIWindow = self.keyWindow,
+                let rootViewController = keyWindow.rootViewController else {
+                    return
+            }
+            let topRootViewController: UIViewController = rootViewController.presentedViewController ?? rootViewController
+           
+            if let tabBarController: UITabBarController = self.getFindController(in: topRootViewController),
+                     let selectedVC = tabBarController.selectedViewController,
+                     let navigationController: UINavigationController = self.getFindController(in: selectedVC) {
+                navigationController.popViewController(animated: animated)
+            } else if let navigationController: UINavigationController = self.getFindController(in: topRootViewController) {
+                navigationController.popViewController(animated: animated)
+           }
+        }
+    }
 }

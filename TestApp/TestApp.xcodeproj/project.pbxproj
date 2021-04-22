@@ -567,7 +567,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TestApp/Preview Content\"";
-				DEVELOPMENT_TEAM = N8A7V86QX7;
+				DEVELOPMENT_TEAM = X4DFUD88BP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Supporting files/TestApp-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -591,7 +591,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TestApp/Preview Content\"";
-				DEVELOPMENT_TEAM = N8A7V86QX7;
+				DEVELOPMENT_TEAM = X4DFUD88BP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Supporting files/TestApp-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
