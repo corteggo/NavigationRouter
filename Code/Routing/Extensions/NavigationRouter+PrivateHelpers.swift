@@ -122,7 +122,7 @@ extension NavigationRouter {
         // Ensure we've got valid parameters
         if !(route.type.requiredParameters?.isEmpty ?? true) {
             guard parameters != nil else {
-                self.handleError(forPath: path, .missingParameters)
+                self.handleError(forPath: path, .missingParameters())
                 return
             }
             let givenParametersNames: Set<String> = Set<String>(parameters!.keys)
@@ -131,7 +131,7 @@ extension NavigationRouter {
             let requiredParametersNames: [String] = route.type.requiredParameters ?? []
             for requiredParameter in requiredParametersNames {
                 if !givenParametersNames.contains(requiredParameter) {
-                    self.handleError(forPath: path, .missingParameters)
+                    self.handleError(forPath: path, .missingParameters())
                     return
                 }
             }

@@ -42,7 +42,7 @@ public final class TestFeature2Module: RoutableModule {
         let view2BRoute: NavigationRoute = NavigationRoute(path: "/view2B",
                                                           type: ViewModel2B.self,
                                                           requiresAuthentication: true)
-        let view2CRoute: NavigationRoute = NavigationRoute(path: "/view2C/:id",
+        let view2CRoute: NavigationRoute = NavigationRoute(path: "/view2C/:id:show",
                                                           type: ViewModel2C.self,
                                                           requiresAuthentication: false,
                                                           allowedExternally: true)

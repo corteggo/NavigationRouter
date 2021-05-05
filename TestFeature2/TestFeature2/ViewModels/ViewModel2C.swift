@@ -32,7 +32,8 @@ struct ViewModel2C: RoutableViewModel {
     /// Required parameters
     static var requiredParameters: [String]? {
         return [
-            "id"
+            "id",
+            "show"
         ]
     }
     
@@ -40,6 +41,7 @@ struct ViewModel2C: RoutableViewModel {
     
     /// Identifier (parameter)
     var id: String?
+    var show: Bool?
     
     // MARK: - Initializers
     
@@ -47,6 +49,8 @@ struct ViewModel2C: RoutableViewModel {
     /// - Parameter parameters: Parameters used for navigation
     init(parameters: [String : String]?) {
         self.id = parameters?["id"]
+        let show = parameters?["show"] ?? "false"
+        self.show = Bool(show)
     }
     
     // MARK: - View builder

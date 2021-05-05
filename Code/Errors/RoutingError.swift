@@ -32,5 +32,5 @@ public enum RoutingError: Error {
     case inactiveScene
     
     /// Missing parameters
-    case missingParameters
+    case missingParameters(message: String = "")
 }

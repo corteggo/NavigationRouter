@@ -48,7 +48,7 @@ struct PathMatcher {
         if exact {
             newPattern = "^" + newPattern + "$"
         }
-        
+        print(matchPath, "\n", newPattern)
         self.matchPath = matchPath
         self.pathPattern = newPattern
     }
@@ -68,16 +68,17 @@ struct PathMatcher {
         
         // Create and perform regex to catch parameter names.
         let regex = try NSRegularExpression(pattern: pathPattern, options: [])
-        var parameterIndex: [Int: String] = [:]
+        var parameterIndex: [String] = []
         
         // Read the variable names from `matchPath`.
         var nsrange = NSRange(matchPath.startIndex..<matchPath.endIndex, in: matchPath)
         let variableRegex = try NSRegularExpression(pattern: #":([^\/\?]+)"#, options: [])
         var matches = variableRegex.matches(in: matchPath, options: [], range: nsrange)
-        
-        for (index, match) in matches.enumerated() where match.numberOfRanges > 1 {
+        for match in matches where match.numberOfRanges > 1 {
             if let range = Range(match.range(at: 1), in: matchPath) {
-                parameterIndex[index] = String(matchPath[range])
+                matchPath[range].split(separator: ":").forEach { value in
+                    parameterIndex.append(String(value))
+                }
             }
         }
         
@@ -91,17 +92,42 @@ struct PathMatcher {
         // swiftlint:disable identifier_name
         
         for match in matches where match.numberOfRanges > 1 {
-            for a in 1..<match.numberOfRanges {
-                if let range = Range(match.range(at: a), in: path) {
-                    if let variableName = parameterIndex[a - 1] {
-                        parameters[variableName] = String(path[range])
+            if let range = Range(match.range(at: 1), in: path) {
+                let parm = path[range].split(separator: ":").reduce(into: [String: String]()) {
+                    let paramtr = $1.components(separatedBy: "=")
+                    if let key = paramtr[safeIndex: 0], let value = paramtr[safeIndex: 1] {
+                        $0[key] = value
                     }
                 }
+                try checkParameters(reqrParameters: parameterIndex, parameters: Array(parm.keys))
+                parameters = parm
             }
         }
         
         // swiftlint:enable identifier_name
         
         return parameters
+    }
+    
+    func checkParameters(reqrParameters: [String], parameters: [String]) throws {
+       try reqrParameters.forEach {
+            if !parameters.contains($0) {
+                throw RoutingError.missingParameters(message: "missing parameter: \($0)")
+            }
+        }
+       try parameters.forEach {
+            if !reqrParameters.contains($0) {
+                throw RoutingError.missingParameters(message: "extra parameter: \($0)")
+            }
+        }
+    }
+}
+
+fileprivate extension Array {
+     subscript(safeIndex index: Int) -> Element? {
+        guard index >= 0, index < endIndex else {
+            return nil
+        }
+        return self[index]
     }
 }
