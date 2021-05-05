@@ -48,7 +48,6 @@ struct PathMatcher {
         if exact {
             newPattern = "^" + newPattern + "$"
         }
-        print(matchPath, "\n", newPattern)
         self.matchPath = matchPath
         self.pathPattern = newPattern
     }
