@@ -79,7 +79,7 @@ extension NavigationRouter {
         }) else {
             // Let the authentication handler handle callback URL if applicable
             if let callbackUrl: URL = URL(string: path),
-                Self.authenticationHandler?.canHandleCallbackUrl?(callbackUrl) ?? false {
+               Self.authenticationHandler?.canHandleCallbackUrl?(callbackUrl) ?? false {
                 return true
             }
             
@@ -112,33 +112,18 @@ extension NavigationRouter {
             return nil
         }
         
-        // Parse parameters
-        let parameters: [String: String]? = self.path(path, toDictionaryForRoutePath: route.path)
-        
-        // Ensure we've got valid parameters
-        if !(route.type.requiredParameters?.isEmpty ?? true) {
-            guard parameters != nil else {
-                return nil
-            }
-            let givenParametersNames: Set<String> = Set<String>(parameters!.keys)
-            
-            // Ensure parameters matches required parameters by view model
-            let requiredParametersNames: [String] = route.type.requiredParameters ?? []
-            for requiredParameter in requiredParametersNames {
-                if !givenParametersNames.contains(requiredParameter) {
-                    return nil
-                }
-            }
+        do {
+            let parameters: [String: String]? = try self.path(path, toDictionaryForRoutePath: route.path)
+            // Instantiate routable
+            let routable: Routable = route.type.init(parameters: parameters)
+            // Return view controller
+            return routable.routedViewController
+        } catch {
+            return nil
         }
-        
-        // Instantiate routable
-        let routable: Routable = route.type.init(parameters: parameters)
-        
-        // Return view controller
-        return routable.routedViewController
     }
     
-#if canImport(SwiftUI)
+    #if canImport(SwiftUI)
     /// Gets view for given path
     /// - Parameter path: Path to return view  for
     /// - Returns: UIViewController
@@ -153,44 +138,32 @@ extension NavigationRouter {
             return defaultView
         }
         
-        // Parse parameters
-        let parameters: [String: String]? = self.path(path, toDictionaryForRoutePath: route.path)
-        
-        // Ensure we've got valid parameters
-        if !(route.type.requiredParameters?.isEmpty ?? true) {
-            guard parameters != nil else {
+        do {
+            // Parse parameters
+            let parameters: [String: String]? = try self.path(path, toDictionaryForRoutePath: route.path)
+            
+            // Instantiate routable
+            let routable: Routable = route.type.init(parameters: parameters)
+            guard let hostingController: UIHostingController<AnyView> =
+                    routable.routedViewController as? UIHostingController<AnyView> else {
                 return defaultView
             }
-            let givenParametersNames: Set<String> = Set<String>(parameters!.keys)
             
-            // Ensure parameters matches required parameters by view model
-            let requiredParametersNames: [String] = route.type.requiredParameters ?? []
-            for requiredParameter in requiredParametersNames {
-                if !givenParametersNames.contains(requiredParameter) {
-                    return defaultView
-                }
-            }
-        }
-        
-        // Instantiate routable
-        let routable: Routable = route.type.init(parameters: parameters)
-        guard let hostingController: UIHostingController<AnyView> =
-            routable.routedViewController as? UIHostingController<AnyView> else {
+            // Return view
+            return hostingController.rootView
+        } catch {
             return defaultView
         }
-        
-        // Return view
-        return hostingController.rootView
     }
-#endif
+    #endif
     
     /// Dismisses modal if needed
     open func dismissModalIfNeeded() {
         DispatchQueue.main.async {
             // Get root controller from active scene
             guard let keyWindow: UIWindow = self.keyWindow,
-                let rootViewController = keyWindow.rootViewController else {
-                    return
+                  let rootViewController = keyWindow.rootViewController else {
+                return
             }
             
             rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
@@ -202,18 +175,18 @@ extension NavigationRouter {
         DispatchQueue.main.async { [self] in
             // Get root controller from active scene
             guard let keyWindow: UIWindow = self.keyWindow,
-                let rootViewController = keyWindow.rootViewController else {
-                    return
+                  let rootViewController = keyWindow.rootViewController else {
+                return
             }
             let topRootViewController: UIViewController = rootViewController.presentedViewController ?? rootViewController
-           
+            
             if let tabBarController: UITabBarController = self.getFindController(in: topRootViewController),
-                     let selectedVC = tabBarController.selectedViewController,
-                     let navigationController: UINavigationController = self.getFindController(in: selectedVC) {
+               let selectedVC = tabBarController.selectedViewController,
+               let navigationController: UINavigationController = self.getFindController(in: selectedVC) {
                 navigationController.popViewController(animated: animated)
             } else if let navigationController: UINavigationController = self.getFindController(in: topRootViewController) {
                 navigationController.popViewController(animated: animated)
-           }
+            }
         }
     }
 }

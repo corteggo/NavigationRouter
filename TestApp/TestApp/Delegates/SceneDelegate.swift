@@ -71,7 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     class MockedErrorHandler: RouterErrorHandler {
         func handleError(_ error: RoutingError) {
             DispatchQueue.main.async {
-                let alert: UIAlertController = UIAlertController(title: "Error", message: "Navigation error", preferredStyle: .alert)
+                let alert: UIAlertController = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: .alert)
                 alert.addAction(.init(title: "OK", style: .default, handler: nil))
                 
                 guard let keyWindow: UIWindow = UIApplication.shared.connectedScenes

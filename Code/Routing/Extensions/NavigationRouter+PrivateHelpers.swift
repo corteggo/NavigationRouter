@@ -63,8 +63,8 @@ extension NavigationRouter {
         }) else {
             // Let the authentication handler handle callback URL if applicable
             if let callbackUrl: URL = URL(string: path),
-                Self.authenticationHandler?.canHandleCallbackUrl?(callbackUrl) ?? false,
-                Self.authenticationHandler?.handleCallbackUrl != nil {
+               Self.authenticationHandler?.canHandleCallbackUrl?(callbackUrl) ?? false,
+               Self.authenticationHandler?.handleCallbackUrl != nil {
                 DispatchQueue.global().async {
                     Self.authenticationHandler?.handleCallbackUrl?(callbackUrl)
                 }
@@ -115,39 +115,27 @@ extension NavigationRouter {
         shouldPreventDismissal: Bool = false,
         interceptionExecutionFlow: NavigationInterceptionFlow? = nil,
         animation: NavigationTransition? = nil) {
-        // Parse parameters
-        let parameters: [String: String]? = self.path(path.lowercased(),
-                                                      toDictionaryForRoutePath: route.path.lowercased())
         
-        // Ensure we've got valid parameters
-        if !(route.type.requiredParameters?.isEmpty ?? true) {
-            guard parameters != nil else {
-                self.handleError(forPath: path, .missingParameters())
-                return
-            }
-            let givenParametersNames: Set<String> = Set<String>(parameters!.keys)
-            
-            // Ensure parameters matches required parameters by view model
-            let requiredParametersNames: [String] = route.type.requiredParameters ?? []
-            for requiredParameter in requiredParametersNames {
-                if !givenParametersNames.contains(requiredParameter) {
-                    self.handleError(forPath: path, .missingParameters())
-                    return
-                }
-            }
+        do {
+            // Parse parameters
+            let parameters: [String: String]? = try self.path(path.lowercased(),
+                                                              toDictionaryForRoutePath: route.path.lowercased())
+            // Actually navigate to route
+            self.navigate(toRoute: route,
+                          withParameters: parameters,
+                          originalPath: path,
+                          replace: replace,
+                          externally: externally,
+                          embedInNavigationView: embedInNavigationView,
+                          modal: modal,
+                          shouldPreventDismissal: shouldPreventDismissal,
+                          interceptionExecutionFlow: interceptionExecutionFlow,
+                          animation: animation)
+        } catch let error as RoutingError {
+            self.handleError(forPath: path, error)
+        } catch {
+            self.handleError(forPath: path, .unknown(msg: "unknown error on Parses parameters and navigates"))
         }
-        
-        // Actually navigate to route
-        self.navigate(toRoute: route,
-                      withParameters: parameters,
-                      originalPath: path,
-                      replace: replace,
-                      externally: externally,
-                      embedInNavigationView: embedInNavigationView,
-                      modal: modal,
-                      shouldPreventDismissal: shouldPreventDismissal,
-                      interceptionExecutionFlow: interceptionExecutionFlow,
-                      animation: animation)
     }
     
     /// Navigates to given route with given parameters
@@ -234,25 +222,25 @@ extension NavigationRouter {
         animation: NavigationTransition? = nil) {
         // Check for authentication level
         guard !route.requiresAuthentication || Self.isUserAuthenticated else {
-           guard let authenticationHandler: RouterAuthenticationHandler = Self.authenticationHandler else {
-               self.handleError(forPath: originalPath, .unauthorized)
-               return
-           }
-           
-           self.dispatchQueue.async {
-               authenticationHandler.login(completion: {
-                   self.dispatchQueue.async {
-                       self.navigate(toPath: originalPath,
-                                     replace: replace,
-                                     embedInNavigationView: embedInNavigationView,
-                                     modal: modal,
-                                     shouldPreventDismissal: shouldPreventDismissal,
-                                     interceptionExecutionFlow: interceptionExecutionFlow,
-                                     animation: animation)
-                   }
-               })
-           }
-           return
+            guard let authenticationHandler: RouterAuthenticationHandler = Self.authenticationHandler else {
+                self.handleError(forPath: originalPath, .unauthorized)
+                return
+            }
+            
+            self.dispatchQueue.async {
+                authenticationHandler.login(completion: {
+                    self.dispatchQueue.async {
+                        self.navigate(toPath: originalPath,
+                                      replace: replace,
+                                      embedInNavigationView: embedInNavigationView,
+                                      modal: modal,
+                                      shouldPreventDismissal: shouldPreventDismissal,
+                                      interceptionExecutionFlow: interceptionExecutionFlow,
+                                      animation: animation)
+                    }
+                })
+            }
+            return
         }
         
         // Instantiate view model
@@ -260,29 +248,29 @@ extension NavigationRouter {
         
         // Set navigation interception execution flow (if any)
         viewModel.navigationInterceptionExecutionFlow = interceptionExecutionFlow
-
+        
         // Get root controller from active scene
         guard let keyWindow: UIWindow = self.keyWindow,
-            let rootViewController = keyWindow.rootViewController else {
-                self.handleError(forPath: originalPath, .inactiveScene)
-                return
+              let rootViewController = keyWindow.rootViewController else {
+            self.handleError(forPath: originalPath, .inactiveScene)
+            return
         }
-
+        
         // Choose modal view controller (if any) instead of root view
         // to be able to navigate in modals
         let topRootViewController: UIViewController = rootViewController.presentedViewController ?? rootViewController
         
         // Create a hosting controller for instantiated view
         let hostedViewController: UIViewController = viewModel.routedViewController
-#if DEBUG
+        #if DEBUG
         hostedViewController.view.accessibilityIdentifier = originalPath
-#endif
+        #endif
         
         // Push hosted view
         if modal {
             let modalViewController: UIViewController =
                 embedInNavigationView ? UINavigationController(rootViewController: hostedViewController)
-                    : hostedViewController
+                : hostedViewController
             if #available(iOS 13.0, macOS 10.15, *) {
                 modalViewController.isModalInPresentation = shouldPreventDismissal
             }
@@ -336,7 +324,7 @@ extension NavigationRouter {
         }
         return nil
     }
-
+    
     /// Sets root view controller
     /// - Parameters:
     ///   - window: UIWindow instance
@@ -356,7 +344,7 @@ extension NavigationRouter {
         switch animation {
         case .right:
             transitionOptions = .init(direction: .toLeft, style: .easeInOut)
-        
+            
         case .down:
             transitionOptions = .init(direction: .toBottom, style: .easeInOut)
             

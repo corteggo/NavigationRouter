@@ -19,7 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
+import Foundation
 /// Routing errors
 public enum RoutingError: Error {
     /// Unauthorized
@@ -33,4 +33,17 @@ public enum RoutingError: Error {
     
     /// Missing parameters
     case missingParameters(message: String = "")
+    
+    case unknown(msg: String = "")
+}
+
+extension RoutingError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .missingParameters(message: let mgs):
+            return NSLocalizedString(mgs, comment: "RoutingError")
+        default:
+            return NSLocalizedString(self.errorDescription ?? "", comment: "RoutingError")
+        }
+    }
 }

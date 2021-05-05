@@ -40,7 +40,7 @@ extension NavigationRouter {
     /// - Parameters:
     ///   - path: Path
     ///   - toDictionaryForRoutePath: Route path
-    func path(_ path: String, toDictionaryForRoutePath routePath: String) -> [String: String]? {
+    func path(_ path: String, toDictionaryForRoutePath routePath: String) throws -> [String: String]? {
         // Make sure route matches
         guard self.path(path, matchesRoutePath: routePath) else {
             return nil
@@ -50,6 +50,6 @@ extension NavigationRouter {
         let pathMatcher: PathMatcher = PathMatcher(match: routePath, exact: true)
         
         // Parse parameters
-        return try? pathMatcher.execute(path: path)
+        return try pathMatcher.execute(path: path)
     }
 }
