@@ -27,10 +27,6 @@ import SwiftUI
 struct ViewModel2E: RoutableViewModel {
     var navigationInterceptionExecutionFlow: NavigationInterceptionFlow?
     
-    static var requiredParameters: [String]? {
-        return nil
-    }
-    
     init(parameters: [String : String]?) {
         
     }

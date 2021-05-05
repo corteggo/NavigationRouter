@@ -27,9 +27,6 @@ import NavigationRouter
 struct ViewModel1A: RoutableViewModel {
     // MARK: - Routing
     
-    /// Required navigation parameters (if any)
-    static var requiredParameters: [String]?
-    
     /// Navigation interception execution flow (if any)
     var navigationInterceptionExecutionFlow: NavigationInterceptionFlow?
     

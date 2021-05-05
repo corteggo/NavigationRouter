@@ -27,16 +27,6 @@ import SwiftUI
 struct ViewModel2C: RoutableViewModel {
     var navigationInterceptionExecutionFlow: NavigationInterceptionFlow?
     
-    // MARK: - Static fields
-    
-    /// Required parameters
-    static var requiredParameters: [String]? {
-        return [
-            "id",
-            "show"
-        ]
-    }
-    
     // MARK: - Fields
     
     /// Identifier (parameter)
