@@ -72,7 +72,7 @@ extension NavigationRouter {
             }
             
             // Non-registered route and given path is not the callback URL for authorization
-            self.handleError(forPath: path, .nonRegisteredRoute)
+            self.handleError(forPath: path, .nonRegisteredRoute(path: path))
             return
         }
         
