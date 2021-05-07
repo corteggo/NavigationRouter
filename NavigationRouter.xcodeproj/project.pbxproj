@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		451259A62645276D000A6F71 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451259A52645276D000A6F71 /* Resolver.swift */; };
 		B38A77A224C09C9300A4919B /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A77A124C09C9300A4919B /* Routable.swift */; };
 		B38A77A424C0A3DB00A4919B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A77A324C0A3DB00A4919B /* Route.swift */; };
 		B38A77A624C0A3F900A4919B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A77A524C0A3F900A4919B /* Router.swift */; };
@@ -47,7 +46,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		451259A52645276D000A6F71 /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		B31004FD24BC51D5000C718E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B37A4451238E745600F0815B /* NavigationRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NavigationRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37A4455238E745600F0815B /* NavigationRouter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NavigationRouter-Info.plist"; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 		B37A4453238E745600F0815B /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				451259A52645276D000A6F71 /* Resolver.swift */,
 				B3C74B5624B76CFE007F5CB9 /* Errors */,
 				B3C74B4524B76CFD007F5CB9 /* Extensions */,
 				B3C74B6324B76CFE007F5CB9 /* Helpers */,
@@ -354,7 +351,6 @@
 				B38A77A924C0A75400A4919B /* Router+MVVM.swift in Sources */,
 				B3C74B7724B76CFF007F5CB9 /* NavigationRouter+PrivateHelpers.swift in Sources */,
 				B3C74B6624B76CFE007F5CB9 /* DispatchQueue.swift in Sources */,
-				451259A62645276D000A6F71 /* Resolver.swift in Sources */,
 				B3C74B6D24B76CFE007F5CB9 /* RouterAuthenticationHandler.swift in Sources */,
 				B3C74B7524B76CFF007F5CB9 /* NavigationRouter.swift in Sources */,
 				B38A77A224C09C9300A4919B /* Routable.swift in Sources */,
