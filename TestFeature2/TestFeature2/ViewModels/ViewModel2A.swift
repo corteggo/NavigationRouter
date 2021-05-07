@@ -27,8 +27,6 @@ import NavigationRouter
 struct ViewModel2A: RoutableViewModel {
     var navigationInterceptionExecutionFlow: NavigationInterceptionFlow?
     
-    static var requiredParameters: [String]?
-    
     init(parameters: [String : String]?) {
         
     }

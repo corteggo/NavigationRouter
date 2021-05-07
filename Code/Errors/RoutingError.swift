@@ -19,6 +19,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+import Foundation
+// swiftlint:disable vertical_whitespace_between_cases
 
 /// Routing errors
 public enum RoutingError: Error {
@@ -26,11 +28,30 @@ public enum RoutingError: Error {
     case unauthorized
     
     /// Non-registered route
-    case nonRegisteredRoute
+    case nonRegisteredRoute(path: String)
     
     /// Inactive scene
     case inactiveScene
     
     /// Missing parameters
-    case missingParameters
+    case missingParameters(message: String = "")
+    
+    case unknown(msg: String = "")
+}
+
+extension RoutingError: LocalizedError {
+   public var localizedDescription: String {
+        switch self {
+        case .missingParameters(let msg):
+            return NSLocalizedString(msg, comment: "RoutingError")
+        case .unauthorized:
+            return NSLocalizedString("For access, the user must be registered", comment: "RoutingError")
+        case .nonRegisteredRoute(let msg):
+            return NSLocalizedString("unregistered path, please check the path: \(msg)", comment: "RoutingError")
+        case .inactiveScene:
+            return NSLocalizedString("Inactive scene", comment: "RoutingError")
+        case .unknown(let msg):
+            return NSLocalizedString(msg, comment: "RoutingError")
+        }
+    }
 }

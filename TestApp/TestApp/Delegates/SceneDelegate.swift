@@ -71,7 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     class MockedErrorHandler: RouterErrorHandler {
         func handleError(_ error: RoutingError) {
             DispatchQueue.main.async {
-                let alert: UIAlertController = UIAlertController(title: "Error", message: "Navigation error", preferredStyle: .alert)
+                let alert: UIAlertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(.init(title: "OK", style: .default, handler: nil))
                 
                 guard let keyWindow: UIWindow = UIApplication.shared.connectedScenes
@@ -104,9 +104,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let navigationController: UINavigationController = UINavigationController(rootViewController: contentView)
-            navigationController.navigationBar.prefersLargeTitles = true
-            window.rootViewController = navigationController
+            window.rootViewController = contentView
             self.window = window
             window.makeKeyAndVisible()
         }

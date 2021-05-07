@@ -25,12 +25,17 @@ import NavigationRouter
 
 struct View2C: RoutableView {
     var body: some View {
-        ScrollView {
+        let sss = "\(viewModel.show ?? false)"
+        
+       return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 Text("This view is from Module 2 and receives parameters.")
                     .font(.body)
                     .foregroundColor(.secondary)
                 Text("Parameter id: \(viewModel.id ?? "")")
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                Text("Parameter show:" + sss)
                     .font(.body)
                     .foregroundColor(.secondary)
             }

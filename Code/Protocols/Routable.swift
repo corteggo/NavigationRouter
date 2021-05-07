@@ -22,11 +22,6 @@
 
 /// Routable protocol
 public protocol Routable {
-    // MARK: - Static fields
-    
-    /// Required parameters
-    static var requiredParameters: [String]? { get }
-    
     // MARK: - Fields
     
     /// Navigation interception flow (if any)

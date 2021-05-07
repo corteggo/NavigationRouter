@@ -27,10 +27,6 @@ import SwiftUI
 public class ViewModel3A: RoutableViewModel {
     public var navigationInterceptionExecutionFlow: NavigationInterceptionFlow?
     
-    public static var requiredParameters: [String]? {
-        return nil
-    }
-    
     public required init(parameters: [String: String]?) {
         
     }
