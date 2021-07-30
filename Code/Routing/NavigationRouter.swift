@@ -37,6 +37,9 @@ open class NavigationRouter: Router {
     /// Error handler
     public static var errorHandler: RouterErrorHandler?
     
+    /// Global interceptor
+    public static var globalInterceptor: RouterGlobalInterceptor?
+    
     /// External navigation delay
     static var externalNavigationDelay: TimeInterval = 1
     

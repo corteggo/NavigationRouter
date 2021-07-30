@@ -89,12 +89,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
+    class GlobalInterceptor: RouterGlobalInterceptor {
+        func interceptor(route path: String) {
+            print(path)
+        }
+    }
+    
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Create mocked authentication handler for router
         NavigationRouter.authenticationHandler = MockedAuthenticationHandler()
         NavigationRouter.errorHandler = MockedErrorHandler()
+        NavigationRouter.globalInterceptor = GlobalInterceptor()
         
         // Create the SwiftUI view that provides the window contents.
         guard let contentView: UIViewController = NavigationRouter.main.viewControllerFor(path: "/view1A") else {

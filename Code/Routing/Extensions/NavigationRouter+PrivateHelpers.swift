@@ -301,6 +301,7 @@ extension NavigationRouter {
             self.setRootViewController(forWindow: keyWindow, hostedViewController, animation: animation)
         }
         
+        Self.globalInterceptor?.interceptor(route: route.path)
         // Let post-navigation interceptors do their work
         DispatchQueue.main.async {
             self.routerDidNavigate(toRoute: route,
