@@ -140,7 +140,8 @@ extension NavigationRouter {
         
         do {
             // Parse parameters
-            let parameters: [String: String]? = try self.path(path, toDictionaryForRoutePath: route.path)
+            let parameters: [String: String]? = try self.path(path.lowercased(),
+                                                              toDictionaryForRoutePath: route.path.lowercased())
             
             // Instantiate routable
             let routable: Routable = route.type.init(parameters: parameters)

@@ -150,6 +150,8 @@ struct View1A: RoutableView {
                         Text("Parametrized navigation")
                             .font(.headline)
                         
+                        NavigationRouter.main.viewFor(path: "/view2C/:id=5:show=true")
+                        
                         RoutedLink(to: "/view2C/:id=5:show=true") {
                             HStack {
                                 VStack(alignment: .leading, spacing: 10) {
