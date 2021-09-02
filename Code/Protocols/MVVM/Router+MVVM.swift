@@ -26,6 +26,7 @@ import Foundation
 import SwiftUI
 
 /// Routable view model
+@MainActor
 public protocol RoutableViewModel: Routable {
     /// Routed view
     @available(iOS 13.0, macOS 10.15, *)
