@@ -50,7 +50,7 @@ public extension RoutableViewModel {
 
 /// Routable view
 @available(iOS 13.0, macOS 10.15, *)
-@MainActor public protocol RoutableView where Self: View {
+public protocol RoutableView where Self: View {
     // MARK: - Associated types
     
     /// View model type
