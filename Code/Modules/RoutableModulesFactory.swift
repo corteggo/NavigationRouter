@@ -23,7 +23,7 @@
 import Foundation
 
 /// Routable modules factory
-public final class RoutableModulesFactory {
+@MainActor public final class RoutableModulesFactory {
     // MARK: - Fields
     
     /// Whether routable modules have already been registered or not

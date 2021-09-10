@@ -23,7 +23,7 @@
 import Foundation
 
 /// Routable module protocol
-@objc public protocol RoutableModule {
+@objc @MainActor public protocol RoutableModule {
     // MARK: - Initializers
     
     /// Initializes a new instance

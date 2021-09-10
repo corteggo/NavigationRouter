@@ -29,7 +29,7 @@ import SwiftUI
 @MainActor public protocol RoutableViewModel: Routable {
     /// Routed view
     @available(iOS 13.0, macOS 10.15, *)
-    nonisolated var routedView: AnyView { get }
+    var routedView: AnyView { get }
 }
 
 /// Routable view model

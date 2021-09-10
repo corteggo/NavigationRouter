@@ -23,7 +23,7 @@
 import NavigationRouter
 
 /// Test feature 1 module definition
-public final class TestFeature1Module: RoutableModule {
+@MainActor public final class TestFeature1Module: RoutableModule {
     // MARK: - Initializers
     
     /// Initializes a new instance

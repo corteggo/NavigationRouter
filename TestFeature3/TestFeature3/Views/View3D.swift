@@ -47,7 +47,9 @@ public struct View3D: RoutableView {
     private var navigationBarItemsLeading: some View {
         HStack {
             Button(action: {
-                NavigationRouter.main.dismissModalIfNeeded()
+                DispatchQueue.main.async {
+                    NavigationRouter.main.dismissModalIfNeeded()
+                }
             }, label: {
                 Image(systemName: "xmark")
             })
