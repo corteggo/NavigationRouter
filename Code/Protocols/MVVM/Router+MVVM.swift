@@ -26,11 +26,10 @@ import Foundation
 import SwiftUI
 
 /// Routable view model
-@MainActor
-public protocol RoutableViewModel: Routable {
+@MainActor public protocol RoutableViewModel: Routable {
     /// Routed view
     @available(iOS 13.0, macOS 10.15, *)
-    var routedView: AnyView { get }
+    nonisolated var routedView: AnyView { get }
 }
 
 /// Routable view model
@@ -51,7 +50,7 @@ public extension RoutableViewModel {
 
 /// Routable view
 @available(iOS 13.0, macOS 10.15, *)
-public protocol RoutableView where Self: View {
+@MainActor public protocol RoutableView where Self: View {
     // MARK: - Associated types
     
     /// View model type

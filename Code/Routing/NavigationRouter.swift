@@ -23,7 +23,7 @@
 import UIKit
 
 /// Navigation router
-open class NavigationRouter: Router {
+@MainActor open class NavigationRouter: Router {
     // MARK: - Fields
     
     // MARK: Static fields

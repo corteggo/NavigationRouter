@@ -21,6 +21,7 @@
 //
 
 /// Routable protocol
+@MainActor
 public protocol Routable {
     // MARK: - Static fields
     

@@ -94,16 +94,18 @@ public struct RoutedLink<Label: SwiftUI.View>: SwiftUI.View {
     /// View body
     public var body: some SwiftUI.View {
         label.onTapGesture {
-            // Navigate to given path
-            self.router.navigate(
-                toPath: self.path,
-                replace: self.replace,
-                externally: false,
-                embedInNavigationView: self.embedInNavigationView,
-                modal: self.modal,
-                shouldPreventDismissal: self.shouldPreventDismissal,
-                interceptionExecutionFlow: self.interceptionExecutionFlow,
-                animation: self.animation)
+            DispatchQueue.main.async {
+                // Navigate to given path
+                self.router.navigate(
+                    toPath: self.path,
+                    replace: self.replace,
+                    externally: false,
+                    embedInNavigationView: self.embedInNavigationView,
+                    modal: self.modal,
+                    shouldPreventDismissal: self.shouldPreventDismissal,
+                    interceptionExecutionFlow: self.interceptionExecutionFlow,
+                    animation: self.animation)
+            }
         }
     }
 }

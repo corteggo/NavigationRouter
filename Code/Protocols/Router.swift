@@ -23,7 +23,7 @@
 import Foundation
 
 /// Router protocol
-public protocol Router {
+@MainActor public protocol Router {
     // MARK: - Routes
     
     /// Bind given route
