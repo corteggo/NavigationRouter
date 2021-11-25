@@ -47,18 +47,18 @@ extension NavigationRouter {
         shouldPreventDismissal: Bool = false,
         interceptionExecutionFlow: NavigationInterceptionFlow? = nil,
         animation: NavigationTransition? = nil) {
-        
-        self.dispatchQueue.async {
-            self.checkNavigationRequirementsAndNavigate(toPath: path,
-                                                        replace: replace,
-                                                        externally: externally,
-                                                        embedInNavigationView: embedInNavigationView,
-                                                        modal: modal,
-                                                        shouldPreventDismissal: shouldPreventDismissal,
-                                                        interceptionExecutionFlow: interceptionExecutionFlow,
-                                                        animation: animation)
+            
+            self.dispatchQueue.async {
+                self.checkNavigationRequirementsAndNavigate(toPath: path,
+                                                            replace: replace,
+                                                            externally: externally,
+                                                            embedInNavigationView: embedInNavigationView,
+                                                            modal: modal,
+                                                            shouldPreventDismissal: shouldPreventDismissal,
+                                                            interceptionExecutionFlow: interceptionExecutionFlow,
+                                                            animation: animation)
+            }
         }
-    }
     
     /// Whether the router can navigate to a given path or not
     /// - Parameter path: Path to navigate to
@@ -123,7 +123,7 @@ extension NavigationRouter {
         }
     }
     
-    #if canImport(SwiftUI)
+#if canImport(SwiftUI)
     /// Gets view for given path
     /// - Parameter path: Path to return view  for
     /// - Returns: UIViewController
@@ -147,8 +147,8 @@ extension NavigationRouter {
             let routable: Routable = route.type.init(parameters: parameters)
             guard let hostingController: UIHostingController<AnyView> =
                     routable.routedViewController as? UIHostingController<AnyView> else {
-                return defaultView
-            }
+                        return defaultView
+                    }
             
             // Return view
             return hostingController.rootView
@@ -156,7 +156,7 @@ extension NavigationRouter {
             return defaultView
         }
     }
-    #endif
+#endif
     
     /// Dismisses modal if needed
     open func dismissModalIfNeeded() {
@@ -164,8 +164,8 @@ extension NavigationRouter {
             // Get root controller from active scene
             guard let keyWindow: UIWindow = self.keyWindow,
                   let rootViewController = keyWindow.rootViewController else {
-                return
-            }
+                      return
+                  }
             
             rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         }
@@ -176,17 +176,31 @@ extension NavigationRouter {
         DispatchQueue.main.async { [self] in
             // Get root controller from active scene
             guard let keyWindow: UIWindow = self.keyWindow,
-                  let rootViewController = keyWindow.rootViewController else {
-                return
-            }
+                  let rootViewController = keyWindow.rootViewController else { return }
+            
             let topRootViewController: UIViewController = rootViewController.presentedViewController ?? rootViewController
             
             if let tabBarController: UITabBarController = self.getFindController(in: topRootViewController),
                let selectedVC = tabBarController.selectedViewController,
                let navigationController: UINavigationController = self.getFindController(in: selectedVC) {
                 navigationController.popViewController(animated: animated)
+                
             } else if let navigationController: UINavigationController = self.getFindController(in: topRootViewController) {
                 navigationController.popViewController(animated: animated)
+            }
+        }
+    }
+    
+    open func popToRootViewController(animated: Bool = true) {
+        // Get root controller from active scene
+        guard let keyWindow: UIWindow = self.keyWindow,
+              let rootViewController = keyWindow.rootViewController,
+              let presentedVC = rootViewController.presentedViewController else { return }
+        
+        if let navigationController: UINavigationController = self.getFindController(in: presentedVC) {
+            DispatchQueue.main.async {
+                navigationController.popToRootViewController(animated: animated)
+                
             }
         }
     }
