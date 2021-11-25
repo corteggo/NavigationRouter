@@ -287,11 +287,11 @@ extension NavigationRouter {
             } else {
                 self.setRootViewController(forWindow: keyWindow, hostedViewController, animation: animation)
             }
-        } else if let tabBarController: UITabBarController = getFindController(in: topRootViewController),
+        } else if let tabBarController: UITabBarController = getController(in: topRootViewController),
                   let selectedVC = tabBarController.selectedViewController,
-                  let navigationController: UINavigationController = getFindController(in: selectedVC) {
+                  let navigationController: UINavigationController = getController(in: selectedVC) {
             navigationController.pushViewController(hostedViewController, animated: true)
-        } else if let navigationController: UINavigationController = getFindController(in: topRootViewController) {
+        } else if let navigationController: UINavigationController = getController(in: topRootViewController) {
             navigationController.pushViewController(hostedViewController, animated: true)
         } else if embedInNavigationView {
             self.setRootViewController(forWindow: keyWindow,
@@ -313,17 +313,6 @@ extension NavigationRouter {
                                    shouldPreventDismissal: shouldPreventDismissal,
                                    animation: animation)
         }
-    }
-    
-    internal func getFindController<Type>(in root: UIViewController) -> Type? {
-        for child in root.children {
-            if let typed = child as? Type {
-                return typed
-            } else if let typed: Type = getFindController(in: child) {
-                return typed
-            }
-        }
-        return nil
     }
     
     /// Sets root view controller

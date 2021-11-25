@@ -173,35 +173,81 @@ extension NavigationRouter {
     
     /// Pop VC if needed
     open func popViewController(animated: Bool = true) {
-        DispatchQueue.main.async { [self] in
-            // Get root controller from active scene
-            guard let keyWindow: UIWindow = self.keyWindow,
-                  let rootViewController = keyWindow.rootViewController else { return }
-            
-            let topRootViewController: UIViewController = rootViewController.presentedViewController ?? rootViewController
-            
-            if let tabBarController: UITabBarController = self.getFindController(in: topRootViewController),
-               let selectedVC = tabBarController.selectedViewController,
-               let navigationController: UINavigationController = self.getFindController(in: selectedVC) {
-                navigationController.popViewController(animated: animated)
-                
-            } else if let navigationController: UINavigationController = self.getFindController(in: topRootViewController) {
-                navigationController.popViewController(animated: animated)
-            }
+        guard let navVC = getRootNV() else { return }
+        DispatchQueue.main.async {
+            navVC.popViewController(animated: animated)
         }
+        
+//        DispatchQueue.main.async { [self] in
+//            // Get root controller from active scene
+//            guard let keyWindow: UIWindow = self.keyWindow,
+//                  let rootViewController = keyWindow.rootViewController else { return }
+//
+//            let topRootViewController: UIViewController = rootViewController.presentedViewController ?? rootViewController
+//
+//            if let tabBarController: UITabBarController = self.getFindController(in: topRootViewController),
+//               let selectedVC = tabBarController.selectedViewControllxer,
+//               let navigationController: UINavigationController = self.getFindController(in: selectedVC) {
+//                navigationController.popViewController(animated: animated)
+//
+//            } else if let navigationController: UINavigationController = self.getFindController(in: topRootViewController) {
+//                navigationController.popViewController(animated: animated)
+//            }
+//        }
     }
     
     open func popToRootViewController(animated: Bool = true) {
+        guard let navVC = getRootNV() else { return }
+        DispatchQueue.main.async {
+            navVC.popToRootViewController(animated: animated)
+        }
         // Get root controller from active scene
+//        print("Kamalov")
+//        guard let keyWindow: UIWindow = self.keyWindow,
+//              let rootViewController = keyWindow.rootViewController else { return }
+//
+//        let presentedVC = rootViewController.presentedViewController ?? rootViewController
+//
+//        print("popToRootViewController")
+//
+//        if let tabBarController: UITabBarController = self.getFindController(in: presentedVC),
+//           let selectedVC = tabBarController.selectedViewController,
+//           let navigationController: UINavigationController = self.getFindController(in: selectedVC) {
+//            DispatchQueue.main.async {
+//                navigationController.popToRootViewController(animated: animated)
+//            }
+//        }
+    }
+    
+    
+}
+
+
+extension NavigationRouter {
+    internal func getRootNV() -> UINavigationController? {
         guard let keyWindow: UIWindow = self.keyWindow,
-              let rootViewController = keyWindow.rootViewController,
-              let presentedVC = rootViewController.presentedViewController else { return }
+              let rootViewController = keyWindow.rootViewController else { return nil }
         
-        if let navigationController: UINavigationController = self.getFindController(in: presentedVC) {
-            DispatchQueue.main.async {
-                navigationController.popToRootViewController(animated: animated)
-                
+        let presentedVC = rootViewController.presentedViewController ?? rootViewController
+        
+        if let tabBarController: UITabBarController = self.getController(in: presentedVC),
+           let selectedVC = tabBarController.selectedViewController,
+           let navigationController: UINavigationController = self.getController(in: selectedVC) {
+            return navigationController
+        } else if let navigationController: UINavigationController = self.getController(in: presentedVC) {
+          return navigationController
+        }
+        return nil
+    }
+    
+    internal func getController<Type>(in root: UIViewController) -> Type? {
+        for child in root.children {
+            if let typed = child as? Type {
+                return typed
+            } else if let typed: Type = getController(in: child) {
+                return typed
             }
         }
+        return nil
     }
 }
